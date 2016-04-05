@@ -99,7 +99,7 @@ suite('ejs', function () {
 	});
 
 	test('bad encoding', function (done) {
-		var log = new Logger('json.parse', job),
+		var log = new Logger('ejs', job),
 		    data = {
 					opts: opts,
 					encoding: 'utf',
