@@ -10,6 +10,12 @@
 # nano-sched-ejs
 EJS processing nano-sched plugin
 
+## data object
+
+* encoding `String` = 'utf8'
+* ejs_args `Object`
+* content `String`
+
 
 [bithound-image]: https://www.bithound.io/github/Holixus/nano-sched-ejs/badges/score.svg
 [bithound-url]: https://www.bithound.io/github/Holixus/nano-sched-ejs
