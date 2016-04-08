@@ -115,4 +115,25 @@ suite('ejs', function () {
 				done();
 			}).catch(done);
 	});
+
+	test('bad code', function (done) {
+		var log = new Logger('ejs', job),
+		    data = {
+					opts: opts,
+					encoding: 'utf8',
+					content: '--<?=44]?>--',
+					result: '--44--'
+				};
+
+		Promise.resolve(log, data)
+			.then(ejs_plugin)
+			.then(function () {
+				done(Error('not failed'));
+			}, function (e) {
+				assert(e.source, 'hasn`t source text');
+				assert.strictEqual(log.dumps.length, 1);
+				done();
+			}).catch(done);
+	});
+
 });
