@@ -51,7 +51,12 @@ Logger.prototype = {
 
 
 var ejs_plugin = require('../index.js'),
-    opts = {},
+    opts = {
+    	globals: {
+    		a:'/a/',
+    		o:'#o#'
+    	}
+    },
     job = {
 		name: 'test',
 		sched: {
@@ -65,7 +70,7 @@ suite('ejs', function () {
 
 		var log = new Logger('ejs', job),
 		    data = {
-					opts: opts,
+					opts: {},
 					encoding: 'utf8',
 					content: '--<?=44?>--',
 					result: '--44--'
@@ -88,6 +93,24 @@ suite('ejs', function () {
 					ejs_args: { o: 5, a: '23432' },
 					content: '--<?=a?>--<?=o?>--',
 					result: '--23432--5--'
+				};
+
+		Promise.resolve(log, data)
+			.then(ejs_plugin)
+			.then(function () {
+				assert.deepStrictEqual(data.content, data.result);
+				done();
+			}).catch(done);
+	});
+
+	test('fine with global args', function (done) {
+
+		var log = new Logger('ejs', job),
+		    data = {
+					opts: opts,
+					encoding: 'utf8',
+					content: '--<?=a?>--<?=o?>--',
+					result: '--/a/--#o#--'
 				};
 
 		Promise.resolve(log, data)

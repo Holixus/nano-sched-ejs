@@ -7,8 +7,13 @@ module.exports = function (log, data) {
 	if (data.encoding !== 'utf8')
 		throw TypeError('data.encoding is not "utf8"');
 
-	var args_names = data.ejs_args ? Object.keys(data.ejs_args) : [],
-	    args = args_names.map(function (v) { return data.ejs_args[v]; });
+	var ejs_args = data.ejs_args || (data.opts && data.opts.globals);
+
+	if (ejs_args)
+		var args_names = Object.keys(ejs_args),
+		    args = args_names.map(function (v) { return ejs_args[v]; });
+	else
+		var args_names = '', args = [];
 
 	try {
 		var fn = ejs.compile(data.content, args_names);
