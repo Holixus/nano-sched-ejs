@@ -9,11 +9,15 @@ module.exports = function (log, data) {
 
 	var ejs_args = data.ejs_args || (data.opts && data.opts.globals);
 
-	if (ejs_args)
+	if (ejs_args) {
 		var args_names = Object.keys(ejs_args),
 		    args = args_names.map(function (v) { return ejs_args[v]; });
-	else
-		var args_names = '', args = [];
+		args_names.unshift('log');
+		args.unshift(log);
+		args_names = args_names.join(',');
+	} else
+		var args_names = 'log', args = [ log ];
+
 
 	try {
 		var fn = ejs.compile(data.content, args_names);

@@ -1,6 +1,6 @@
 {
   "name": "nano-sched-ejs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "JSON parsing and stringifying nano-sched plugin",
   "main": "index.js",
   "scripts": {
